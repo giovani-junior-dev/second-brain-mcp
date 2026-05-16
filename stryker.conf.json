@@ -1,0 +1,17 @@
+{
+  "$schema": "./node_modules/@stryker-mutator/core/schema/stryker-schema.json",
+  "_comment": "Storage layer mutation testing",
+  "packageManager": "npm",
+  "reporters": ["clear-text", "progress"],
+  "testRunner": "vitest",
+  "coverageAnalysis": "perTest",
+  "mutate": [
+    "src/storage/**/*.ts",
+    "src/mcp/**/*.ts",
+    "src/curator/**/*.ts",
+    "!src/**/*.test.ts",
+    "!src/mcp/server.ts",
+    "!src/curator/llm.ts"
+  ],
+  "thresholds": { "high": 85, "low": 75, "break": 75 }
+}

@@ -1,0 +1,13 @@
+node_modules/
+dist/
+coverage/
+.stryker-tmp/
+reports/
+*.db
+.brain/
+*.log
+.DS_Store
+.env
+.env.*
+*.key
+*.pem
