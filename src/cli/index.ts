@@ -12,6 +12,7 @@ import { migrate } from '../storage/migrate.js';
 import { listSkills } from '../storage/skills.js';
 import { DB_FILE, SKILLS_DIR } from './paths.js';
 import { exportScope, initBrain, status } from './service.js';
+import { runDefaultSetup } from './setup-claude.js';
 
 const GLOBAL_SCOPE = 'global';
 
@@ -27,6 +28,14 @@ export function buildProgram(): Command {
       const db = openDb(DB_FILE);
       migrate(db);
       await startStdio(db);
+    });
+
+  program
+    .command('setup-claude')
+    .description('Install brain-memory skill + mcpServers entry into ~/.claude (idempotent)')
+    .action(() => {
+      const r = runDefaultSetup();
+      process.stdout.write(`${JSON.stringify(r, null, 2)}\n`);
     });
 
   program
