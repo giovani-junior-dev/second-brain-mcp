@@ -1,7 +1,7 @@
 # Goal Plan — bootstrap-second-brain-mcp (F1)
 
 ## 1. Contexto
-- Repo: `C:/Users/Script7/Desktop/second-brain-mcp/`
+- Repo: `<repo>/`
 - Stack: TypeScript + Node 20 + MCP SDK + better-sqlite3
 - Estado atual: dir vazio com `docs/` (PRD + ADRs + goals)
 - Comando teste: `npm test` (Vitest, criar em F1)
@@ -63,13 +63,13 @@
 ## 7. Condição final (cole no /goal)
 
 ```
-Bootstrap projeto second-brain-mcp em C:/Users/Script7/Desktop/second-brain-mcp. Estado final: package.json valido com scripts build/test/lint/typecheck/start, tsconfig.json strict ES2022 ESNext, biome.json, vitest.config.ts, src/index.ts exportando versao 0.1.0, README.md minimo, .gitignore com node_modules/dist/*.db/.brain. Provar com `npm install` exits 0, `npm run build 2>&1 | tail -5` mostrando dist criado sem erros, `npm test 2>&1 | tail -10` mostrando ao menos 1 teste passando com "passed", `npm run lint 2>&1 | tail -5` zero violations, `npm run typecheck 2>&1 | tail -5` sem erros, `ls dist/` mostrando index.js. Sem criar codigo de funcionalidade (so skeleton), sem dependencias fora da stack PRD (typescript, @modelcontextprotocol/sdk, better-sqlite3, @anthropic-ai/sdk, zod, commander, gray-matter, vitest, @stryker-mutator/core, @biomejs/biome, tsup), sem commitar node_modules ou dist, sem --no-verify, sem @ts-ignore, sem desabilitar lint, sem modificar lockfiles manualmente, sem mensagens de commit vagas, or stop after 15 turns. Report turn count, build status, test count, lint violations e remaining bound each turn. Claude must echo full output of each verification command.
+Bootstrap projeto second-brain-mcp em C:/Users/<user>/Desktop/second-brain-mcp. Estado final: package.json valido com scripts build/test/lint/typecheck/start, tsconfig.json strict ES2022 ESNext, biome.json, vitest.config.ts, src/index.ts exportando versao 0.1.0, README.md minimo, .gitignore com node_modules/dist/*.db/.brain. Provar com `npm install` exits 0, `npm run build 2>&1 | tail -5` mostrando dist criado sem erros, `npm test 2>&1 | tail -10` mostrando ao menos 1 teste passando com "passed", `npm run lint 2>&1 | tail -5` zero violations, `npm run typecheck 2>&1 | tail -5` sem erros, `ls dist/` mostrando index.js. Sem criar codigo de funcionalidade (so skeleton), sem dependencias fora da stack PRD (typescript, @modelcontextprotocol/sdk, better-sqlite3, @anthropic-ai/sdk, zod, commander, gray-matter, vitest, @stryker-mutator/core, @biomejs/biome, tsup), sem commitar node_modules ou dist, sem --no-verify, sem @ts-ignore, sem desabilitar lint, sem modificar lockfiles manualmente, sem mensagens de commit vagas, or stop after 15 turns. Report turn count, build status, test count, lint violations e remaining bound each turn. Claude must echo full output of each verification command.
 ```
 
 ## 8. Comando completo
 
 ```
-/goal Bootstrap projeto second-brain-mcp em C:/Users/Script7/Desktop/second-brain-mcp. Estado final: package.json valido com scripts build/test/lint/typecheck/start, tsconfig.json strict ES2022 ESNext, biome.json, vitest.config.ts, src/index.ts exportando versao 0.1.0, README.md minimo, .gitignore com node_modules/dist/*.db/.brain. Provar com `npm install` exits 0, `npm run build 2>&1 | tail -5` mostrando dist criado sem erros, `npm test 2>&1 | tail -10` mostrando ao menos 1 teste passando com "passed", `npm run lint 2>&1 | tail -5` zero violations, `npm run typecheck 2>&1 | tail -5` sem erros, `ls dist/` mostrando index.js. Sem criar codigo de funcionalidade, sem dependencias fora da stack PRD, sem commitar node_modules ou dist, sem --no-verify, sem @ts-ignore, sem desabilitar lint, sem modificar lockfiles manualmente, sem mensagens de commit vagas, or stop after 15 turns. Report turn count, build status, test count, lint violations e remaining bound each turn. Claude must echo full output of each verification command.
+/goal Bootstrap projeto second-brain-mcp em C:/Users/<user>/Desktop/second-brain-mcp. Estado final: package.json valido com scripts build/test/lint/typecheck/start, tsconfig.json strict ES2022 ESNext, biome.json, vitest.config.ts, src/index.ts exportando versao 0.1.0, README.md minimo, .gitignore com node_modules/dist/*.db/.brain. Provar com `npm install` exits 0, `npm run build 2>&1 | tail -5` mostrando dist criado sem erros, `npm test 2>&1 | tail -10` mostrando ao menos 1 teste passando com "passed", `npm run lint 2>&1 | tail -5` zero violations, `npm run typecheck 2>&1 | tail -5` sem erros, `ls dist/` mostrando index.js. Sem criar codigo de funcionalidade, sem dependencias fora da stack PRD, sem commitar node_modules ou dist, sem --no-verify, sem @ts-ignore, sem desabilitar lint, sem modificar lockfiles manualmente, sem mensagens de commit vagas, or stop after 15 turns. Report turn count, build status, test count, lint violations e remaining bound each turn. Claude must echo full output of each verification command.
 ```
 
 ## 9. Checklist pré-entrega

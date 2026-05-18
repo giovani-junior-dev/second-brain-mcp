@@ -1,7 +1,7 @@
 # Goal Plan — add-curator (F4)
 
 ## 1. Contexto
-- Repo: `C:/Users/Script7/Desktop/second-brain-mcp/`
+- Repo: `<repo>/`
 - Stack: TS + @anthropic-ai/sdk + msw (mock LLM)
 - Pré-req: F2 (storage) + F3 (mcp) done
 

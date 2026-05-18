@@ -1,7 +1,7 @@
 # Goal Plan — add-storage-layer (F2)
 
 ## 1. Contexto
-- Repo: `C:/Users/Script7/Desktop/second-brain-mcp/`
+- Repo: `<repo>/`
 - Stack: TS + better-sqlite3 + Vitest
 - Estado atual: F1 concluída (skeleton + smoke)
 - Comando teste: `npm test`

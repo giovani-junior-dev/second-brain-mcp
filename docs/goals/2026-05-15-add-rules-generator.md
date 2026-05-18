@@ -1,7 +1,7 @@
 # Goal Plan — add-rules-generator (F7)
 
 ## 1. Contexto
-- Repo: `C:/Users/Script7/Desktop/second-brain-mcp/`
+- Repo: `<repo>/`
 - Stack: TS puro (sem template engine externo)
 - Pré-req: F2 (storage), F6 (cli) done
 

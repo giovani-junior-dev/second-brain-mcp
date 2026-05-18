@@ -25,7 +25,7 @@ Restante: ~110 turns. Total inicial: ~145 turns / ~14 dias úteis solo.
 
 ## Antes de cada /goal
 
-1. Abrir sessão Claude Code em `C:/Users/Script7/Desktop/second-brain-mcp/`
+1. Abrir sessão Claude Code em `<repo>/`
 2. Ativar auto mode (`/auto on` ou setting)
 3. Copiar bloco "Condição final" do .md correspondente
 4. Colar no prompt prefixado com `/goal `

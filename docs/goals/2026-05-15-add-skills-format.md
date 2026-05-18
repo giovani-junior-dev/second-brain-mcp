@@ -1,7 +1,7 @@
 # Goal Plan — add-skills-format (F5)
 
 ## 1. Contexto
-- Repo: `C:/Users/Script7/Desktop/second-brain-mcp/`
+- Repo: `<repo>/`
 - Stack: TS + gray-matter (frontmatter YAML)
 - Pré-req: F2 (storage) done. Recomendado F4 (curator) done.
 - Standard: agentskills.io (compatibilidade Hermes/OpenClaude)

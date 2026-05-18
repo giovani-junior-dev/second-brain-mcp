@@ -1,7 +1,7 @@
 # Goal Plan — polish-v0-1-release (F8)
 
 ## 1. Contexto
-- Repo: `C:/Users/Script7/Desktop/second-brain-mcp/`
+- Repo: `<repo>/`
 - Stack: TS + npm publish
 - Pré-req: F1-F7 done
 

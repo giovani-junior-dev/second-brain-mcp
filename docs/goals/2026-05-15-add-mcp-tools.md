@@ -1,7 +1,7 @@
 # Goal Plan — add-mcp-tools (F3)
 
 ## 1. Contexto
-- Repo: `C:/Users/Script7/Desktop/second-brain-mcp/`
+- Repo: `<repo>/`
 - Stack: TS + @modelcontextprotocol/sdk + Zod
 - Pré-req: F2 done (storage layer funcional)
 
