@@ -1,7 +1,14 @@
 import type { Database } from 'better-sqlite3';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { openDb } from './db.js';
-import { archiveFact, getFactById, insertFact, listFacts, searchFacts } from './facts.js';
+import {
+  archiveFact,
+  getFactById,
+  insertFact,
+  listFacts,
+  searchFacts,
+  searchFactsInScope,
+} from './facts.js';
 import { migrate } from './migrate.js';
 
 let db: Database;
@@ -61,6 +68,29 @@ describe('archiveFact', () => {
     const id = insertFact(db, { scope: 'global', content: 'x', type: 'note' });
     archiveFact(db, id);
     expect(getFactById(db, id)?.archived).toBe(1);
+  });
+});
+
+describe('searchFactsInScope', () => {
+  it('filters by scope at SQL level before LIMIT', () => {
+    for (let i = 0; i < 10; i++) {
+      insertFact(db, { scope: 'global', content: `agent task ${i}`, type: 'note' });
+    }
+    insertFact(db, { scope: 'project:x', content: 'agent project unique', type: 'note' });
+    const rows = searchFactsInScope(db, '"agent"', 'project:x', 5);
+    expect(rows).toHaveLength(1);
+    expect(rows[0]?.content).toBe('agent project unique');
+  });
+
+  it('returns empty when scope has no matches', () => {
+    insertFact(db, { scope: 'global', content: 'only global', type: 'note' });
+    expect(searchFactsInScope(db, '"global"', 'project:missing', 5)).toHaveLength(0);
+  });
+
+  it('excludes archived', () => {
+    const id = insertFact(db, { scope: 'global', content: 'hello', type: 'note' });
+    archiveFact(db, id);
+    expect(searchFactsInScope(db, '"hello"', 'global', 5)).toHaveLength(0);
   });
 });
 

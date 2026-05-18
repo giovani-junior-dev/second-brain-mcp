@@ -41,6 +41,18 @@ export function searchFacts(db: Database, query: string, limit: number): FactRow
   return db.prepare(sql).all(query, limit) as FactRow[];
 }
 
+export function searchFactsInScope(
+  db: Database,
+  query: string,
+  scope: string,
+  limit: number,
+): FactRow[] {
+  const sql =
+    'SELECT f.* FROM facts_fts JOIN facts f ON f.id = facts_fts.rowid ' +
+    'WHERE facts_fts MATCH ? AND f.archived = 0 AND f.scope = ? ORDER BY rank LIMIT ?';
+  return db.prepare(sql).all(query, scope, limit) as FactRow[];
+}
+
 export function archiveFact(db: Database, id: number): void {
   db.prepare('UPDATE facts SET archived = 1 WHERE id = ?').run(id);
 }

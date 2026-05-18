@@ -37,6 +37,15 @@ describe('recall tool', () => {
     expect(out.content).not.toContain('specific global');
   });
 
+  it('scope filter works even when many global matches saturate FTS top-N', () => {
+    for (let i = 0; i < 20; i++) {
+      insertFact(db, { scope: 'global', content: `agent global ${i}`, type: 'note' });
+    }
+    insertFact(db, { scope: 'project:x', content: 'agent project hidden', type: 'note' });
+    const out = recall(db, { query: 'agent', scope: 'project:x', limit: 5 });
+    expect(out.content).toContain('agent project hidden');
+  });
+
   it('rejects empty query', () => {
     expect(() => recall(db, { query: '' })).toThrow();
   });
