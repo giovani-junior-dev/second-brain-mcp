@@ -20,8 +20,8 @@ beforeEach(() => {
 });
 
 describe('buildProgram', () => {
-  it('has version 0.1.0', () => {
-    expect(buildProgram().version()).toBe('0.1.0');
+  it('has version 0.1.1', () => {
+    expect(buildProgram().version()).toBe('0.1.1');
   });
 
   it('registers expected commands', () => {
@@ -91,7 +91,7 @@ describe('skills list command', () => {
       // commander exits after version
     }
     process.stdout.write = origWrite;
-    expect(captured.join('')).toContain('0.1.0');
+    expect(captured.join('')).toContain('0.1.1');
   });
 });
 

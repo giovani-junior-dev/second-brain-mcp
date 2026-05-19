@@ -7,8 +7,8 @@ import { runSetup } from './setup-claude.js';
 let tmpHome: string;
 let tmpSetup: string;
 
-const BLOCK = `<!-- BEGIN: brain-memory -->\nbrain-memory bloco\n<!-- END: brain-memory -->`;
-const SKILL = `---\nname: brain-memory\ndescription: test skill\n---\nbody`;
+const BLOCK = '<!-- BEGIN: brain-memory -->\nbrain-memory bloco\n<!-- END: brain-memory -->';
+const SKILL = '---\nname: brain-memory\ndescription: test skill\n---\nbody';
 
 beforeEach(() => {
   tmpHome = mkdtempSync(join(tmpdir(), 'sc-home-'));
