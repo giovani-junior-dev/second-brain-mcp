@@ -1,13 +1,13 @@
 import type { Database } from 'better-sqlite3';
 import { consolidateSkills } from './consolidate.js';
-import { type Pattern, extractPatterns } from './extractor.js';
+import { extractPatternsBatched } from './extractor-batched.js';
+import type { Pattern } from './extractor.js';
 import type { LlmAdapter } from './llm.js';
 import { promotePatterns } from './promote.js';
 import { markRun } from './scheduler.js';
 import { generateSkill } from './skill-gen.js';
 import { markStaleFacts } from './stale.js';
 
-const MSG_LIMIT = 200;
 const GLOBAL_SCOPE = 'global';
 
 export type RunSummary = {
@@ -24,7 +24,7 @@ export async function runCurator(
   skillsDir: string,
   now: number,
 ): Promise<RunSummary> {
-  const patterns: Pattern[] = await extractPatterns(db, llm, MSG_LIMIT);
+  const patterns: Pattern[] = await extractPatternsBatched(db, llm);
   const promoted = promotePatterns(db, patterns);
   const generated = patterns
     .filter((p) => p.kind === 'procedural')

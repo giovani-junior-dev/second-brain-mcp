@@ -91,11 +91,32 @@ brain setup-claude                     # instala skill + config em ~/.claude (id
 brain init                             # cria ~/.brain com DB
 brain status                           # mostra path DB, fact count, skill count, último curator run
 brain serve                            # roda MCP stdio server (usado pelo Claude Code)
+brain index-sessions                   # indexa histórico Claude Code (~/.claude/projects/) no brain
+brain index-sessions --projects=A,B    # filtra projetos específicos
+brain index-sessions --since=2026-01-01 # apenas mensagens recentes
 brain curator run                      # força ciclo curator (precisa ANTHROPIC_API_KEY no env)
 brain skills list --scope=global       # lista skills aprendidas
 brain rules generate --target=claude   # injeta bloco em CLAUDE.md de outro projeto
 brain export --scope=global            # JSON dump
 ```
+
+## Onboarding (novos usuários)
+
+Após `brain setup-claude`, a skill `memory-interview` fica disponível no Claude Code. Em uma sessão CC nova, peça:
+
+```
+/memory-interview
+```
+
+Agente faz 7 perguntas amigáveis (nome, timezone, stack, editor, estilo comunicação, estilo trabalho, extras) e salva cada resposta como fato global. Próximas sessões já começam com contexto.
+
+## Indexação retroativa
+
+```bash
+brain index-sessions
+```
+
+Lê todos os `*.jsonl` em `~/.claude/projects/`, extrai mensagens user/assistant, persiste no brain DB (dedup por hash SHA1). Mais histórico = curator detecta padrões reais que você repete há meses.
 
 ## Autoaprendizado
 

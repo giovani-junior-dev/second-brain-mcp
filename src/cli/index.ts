@@ -3,6 +3,8 @@ import { basename } from 'node:path';
 import { Command } from 'commander';
 import { defaultLlm } from '../curator/llm.js';
 import { runCurator } from '../curator/run.js';
+import { runIndexer } from '../indexer/index-runner.js';
+import { defaultProjectsRoot } from '../indexer/scan.js';
 import { startStdio } from '../mcp/server.js';
 import { applyBlock } from '../rules/merger.js';
 import { type Target, defaultOutPath, renderBlock } from '../rules/templates.js';
@@ -18,7 +20,7 @@ const GLOBAL_SCOPE = 'global';
 
 export function buildProgram(): Command {
   const program = new Command();
-  program.name('brain').description('second-brain-mcp CLI').version('0.1.0');
+  program.name('brain').description('second-brain-mcp CLI').version('0.1.1');
 
   program
     .command('serve')
@@ -28,6 +30,25 @@ export function buildProgram(): Command {
       const db = openDb(DB_FILE);
       migrate(db);
       await startStdio(db);
+    });
+
+  program
+    .command('index-sessions')
+    .description('Index Claude Code session history from ~/.claude/projects into brain DB')
+    .option('--projects <list>', 'comma-separated project names to filter')
+    .option('--since <date>', 'ISO date YYYY-MM-DD to filter older messages')
+    .action((opts: { projects?: string; since?: string }) => {
+      initBrain();
+      const db = openDb(DB_FILE);
+      migrate(db);
+      const projects = opts.projects
+        ?.split(',')
+        .map((s) => s.trim())
+        .filter(Boolean);
+      const since = opts.since ? Date.parse(opts.since) || undefined : undefined;
+      const summary = runIndexer(db, defaultProjectsRoot(), { projects, since });
+      db.close();
+      process.stdout.write(`${JSON.stringify(summary, null, 2)}\n`);
     });
 
   program

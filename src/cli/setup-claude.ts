@@ -5,7 +5,8 @@ import { fileURLToPath } from 'node:url';
 
 const MARKER_BEGIN = '<!-- BEGIN: brain-memory -->';
 const MARKER_END = '<!-- END: brain-memory -->';
-const SKILL_NAME = 'brain-memory';
+const PRIMARY_SKILL = 'brain-memory';
+const EXTRA_SKILLS = ['memory-interview'];
 
 export type SetupOptions = {
   homeDir: string;
@@ -25,17 +26,24 @@ function readBlockTemplate(setupDir: string): string {
   return readFileSync(join(setupDir, 'CLAUDE_MD_BLOCK.md'), 'utf8').trim();
 }
 
-function copySkill(setupDir: string, homeDir: string): boolean {
-  const src = join(setupDir, 'skills', SKILL_NAME, 'SKILL.md');
-  const dstDir = join(homeDir, '.claude', 'skills', SKILL_NAME);
-  const dst = join(dstDir, 'SKILL.md');
+function copyOneSkill(setupDir: string, homeDir: string, name: string): void {
+  const src = join(setupDir, 'skills', name, 'SKILL.md');
+  if (!existsSync(src)) return;
+  const dstDir = join(homeDir, '.claude', 'skills', name);
   mkdirSync(dstDir, { recursive: true });
-  copyFileSync(src, dst);
+  copyFileSync(src, join(dstDir, 'SKILL.md'));
+}
+
+function copySkill(setupDir: string, homeDir: string): boolean {
+  copyOneSkill(setupDir, homeDir, PRIMARY_SKILL);
+  for (const extra of EXTRA_SKILLS) {
+    copyOneSkill(setupDir, homeDir, extra);
+  }
   return true;
 }
 
 function ensureFlag(homeDir: string): boolean {
-  const stateDir = join(homeDir, '.claude', 'skills', SKILL_NAME, 'state');
+  const stateDir = join(homeDir, '.claude', 'skills', PRIMARY_SKILL, 'state');
   mkdirSync(stateDir, { recursive: true });
   const flag = join(stateDir, 'enabled.flag');
   if (!existsSync(flag)) {

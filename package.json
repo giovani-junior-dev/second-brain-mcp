@@ -1,6 +1,6 @@
 {
   "name": "second-brain-mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Persistent memory MCP server with SQLite FTS5 + curator + skills",
   "type": "module",
   "main": "dist/index.js",

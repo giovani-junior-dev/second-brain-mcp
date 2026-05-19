@@ -5,8 +5,11 @@ CREATE TABLE IF NOT EXISTS messages (
   project TEXT,
   role TEXT NOT NULL,
   content TEXT NOT NULL,
-  created_at INTEGER NOT NULL
+  created_at INTEGER NOT NULL,
+  content_hash TEXT
 );
+
+CREATE UNIQUE INDEX IF NOT EXISTS idx_messages_content_hash ON messages(content_hash) WHERE content_hash IS NOT NULL;
 
 CREATE VIRTUAL TABLE IF NOT EXISTS messages_fts USING fts5(content, content=messages);
 
