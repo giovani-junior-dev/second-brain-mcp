@@ -15,4 +15,7 @@ function ensureContentHashColumn(db: Database): void {
 export function migrate(db: Database): void {
   db.exec(SCHEMA_DDL);
   ensureContentHashColumn(db);
+  db.exec(
+    'CREATE UNIQUE INDEX IF NOT EXISTS idx_messages_content_hash ON messages(content_hash) WHERE content_hash IS NOT NULL',
+  );
 }

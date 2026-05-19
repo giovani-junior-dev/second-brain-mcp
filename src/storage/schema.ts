@@ -9,8 +9,6 @@ CREATE TABLE IF NOT EXISTS messages (
   content_hash TEXT
 );
 
-CREATE UNIQUE INDEX IF NOT EXISTS idx_messages_content_hash ON messages(content_hash) WHERE content_hash IS NOT NULL;
-
 CREATE VIRTUAL TABLE IF NOT EXISTS messages_fts USING fts5(content, content=messages);
 
 CREATE VIRTUAL TABLE IF NOT EXISTS messages_fts_trigram USING fts5(content, tokenize='trigram');
