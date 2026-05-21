@@ -110,25 +110,69 @@ Após `brain setup-claude`, a skill `memory-interview` fica disponível no Claud
 
 Agente faz 7 perguntas amigáveis (nome, timezone, stack, editor, estilo comunicação, estilo trabalho, extras) e salva cada resposta como fato global. Próximas sessões já começam com contexto.
 
-## Indexação retroativa
+## Manutenção mensal (4 passos)
 
-```bash
-brain index-sessions
+Atualizar brain com histórico recente + auto-aprendizado:
+
+### PowerShell (Windows)
+
+```powershell
+# 1. Indexar histórico CC (grátis, sem API key)
+cd C:\caminho\para\second-brain-mcp
+node dist/cli/index.js index-sessions
+# Esperado: { "messagesIndexed": N, "projectsIndexed": [...] }
+
+# 2. Setar API key Anthropic (sessão atual)
+$env:ANTHROPIC_API_KEY = "sk-ant-api03-..."
+
+# 3. Curator processa via LLM Haiku (~$0.01–$0.10)
+node dist/cli/index.js curator run
+# Esperado: { "patterns": N, "promotedFacts": N, "generatedSkills": N, ... }
+
+# 4. Conferir resultado
+node dist/cli/index.js status
+node dist/cli/index.js skills list --scope=global
 ```
 
-Lê todos os `*.jsonl` em `~/.claude/projects/`, extrai mensagens user/assistant, persiste no brain DB (dedup por hash SHA1). Mais histórico = curator detecta padrões reais que você repete há meses.
-
-## Autoaprendizado
-
-Após acumular interações (CC grava tudo via mensagem automática), rode:
+### Bash (Unix/macOS)
 
 ```bash
-brain curator run
+cd /path/to/second-brain-mcp
+node dist/cli/index.js index-sessions
+export ANTHROPIC_API_KEY="sk-ant-api03-..."
+node dist/cli/index.js curator run
+node dist/cli/index.js status
+node dist/cli/index.js skills list --scope=global
 ```
 
-LLM Anthropic Haiku (default, configurável) analisa mensagens, extrai padrões repetidos em ≥3 sessões, promove fatos e gera SKILL.md para padrões procedurais. Custo ~$0.001 por execução.
+### Custos por step
 
-**Pré-req:** `ANTHROPIC_API_KEY` no env:
+| Step | LLM? | Custo |
+|---|---|---|
+| 1. index-sessions | não | $0.00 |
+| 2. setar env | não | $0.00 |
+| 3. curator run | Anthropic Haiku | $0.01–$0.10 |
+| 4. status / skills list | não | $0.00 |
+
+Reruns são idempotentes — hash dedup em index-sessions, idempotent skill insert em curator.
+
+## Indexação retroativa (detalhes)
+
+`brain index-sessions` lê todos `*.jsonl` em `~/.claude/projects/`, extrai mensagens user/assistant, persiste no brain DB (dedup por hash SHA1). Mais histórico = curator detecta padrões reais que você repete há meses.
+
+Filtros opcionais:
+```bash
+brain index-sessions --projects=projA,projB
+brain index-sessions --since=2026-01-01
+```
+
+## Autoaprendizado (detalhes)
+
+LLM Anthropic Haiku (default) analisa mensagens, extrai padrões repetidos em ≥3 sessões, promove fatos e gera SKILL.md para padrões procedurais.
+
+**Pré-req:** `ANTHROPIC_API_KEY` no env (ver step 2 acima).
+
+Setar permanente (todos terminais futuros):
 
 ```powershell
 # Windows
